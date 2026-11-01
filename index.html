@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>豆包PPT填表板｜ppt-master 一站式PPT生成工具</title>
+<title>豆包PPT填表板｜适配 ppt-master Skill</title>
 <style>
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 body{max-width:1140px;margin:24px auto;padding:0 16px;color:#222;background:#f7f9fb;font-size:16px;line-height:1.6}
@@ -28,22 +28,45 @@ pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:
 @media(max-width:720px){.grid-row{grid-template-columns:1fr}}
 .info-block{background:#ecfdf5;border:1px solid #a7f3d0;padding:12px;border-radius:8px;margin:10px 0;color:#065f46}
 .warn-block{background:#fffbeb;border:1px solid #fcd34d;padding:12px;border-radius:8px;margin:10px 0;color:#92400e}
+.code-block{background:#f3f4f6;padding:10px;border-radius:6px;font-family:monospace;font-size:13px;white-space:pre-wrap;line-height:1.4}
 </style>
 </head>
 <body>
 <h1>豆包PPT填表板｜适配 ppt-master Skill</h1>
-<div class="desc">一站式生成答辩/竞赛PPT提示词｜新手友好，从0到1完成PPT制作</div>
+<div class="desc">一站式生成答辩/竞赛PPT提示词｜新手友好，从0到1完成PPT制作（豆包工作 Doubao Work）</div>
 
 <section class="info-block">
 <h2>📖 新手必读｜0基础使用指南（发给别人先看这里！）</h2>
-<p><strong>🔹 前置准备：必须先安装 Skill</strong></p>
-<p>本工具依赖豆包技能：<code>ppt-master</code>，没有安装将无法执行HTML转PPT。</p>
+<p><strong>🔹 重要前置说明</strong></p>
+<p>本工具配套技能：<code>ppt-master</code>，开源地址：https://github.com/hugohe3/ppt-master</p>
+<p>⚠️ <strong>该自定义技能【只能在豆包工作 Doubao Work】加载，普通豆包网页版（doubao.com）不支持自定义技能导入！</strong></p>
+
+<p><strong>🔹 方式一：对话一键创建技能（推荐分享给其他人，复制下面整段发给豆包工作）</strong></p>
+<div class="code-block">请帮我新建一个自定义技能，技能名称：ppt-master
+技能来源仓库：https://github.com/hugohe3/ppt-master
+技能文件地址：https://raw.githubusercontent.com/hugohe3/ppt-master/main/skills/ppt-master/SKILL.md
+
+规则：
+1. 读取这个SKILL.md全部内容，作为本技能的系统指令
+2. 技能用途：原生生成可编辑PPTX幻灯片，支持HTML单页转PPT、美化PPT、根据描述生成PPT页面、基于模板填充PPT，支持16:9固定画布
+3. 触发条件：用户要求生成PPT、转HTML页面为PPT、美化幻灯片、重建PPT页面、生成图表幻灯片时自动启用本技能
+4. 不要修改SKILL.md原文逻辑，完整保留所有转换约束、CSS规范、尺寸规则
+5. 创建完成后，告诉我：技能创建成功，以及怎么在对话里开启调用</div>
+
+<p><strong>🔹 方式二：本地文件夹上传导入（稳定性更高）</strong></p>
 <ol>
-<li>打开豆包网页版 / PC客户端</li>
-<li>左侧【技能广场】搜索：<strong>ppt-master</strong></li>
-<li>点击添加技能，开启技能调用权限（免费）</li>
-<li>确认聊天框上方可以看到 ppt-master 已启用</li>
+<li>打开仓库地址：https://github.com/hugohe3/ppt-master → Code → Download ZIP 下载源码压缩包</li>
+<li>解压压缩包，进入路径：<code>ppt-master-main/skills/ppt-master/</code></li>
+<li>打开豆包工作 → 左侧【技能】→【+ 添加技能】→【上传技能文件夹】</li>
+<li>选中整个 <code>ppt-master</code> 文件夹上传，等待校验通过保存</li>
 </ol>
+
+<p><strong>🔹 创建完成后，怎么开启调用 ppt-master</strong></p>
+<ol>
+<li>手动开启：豆包工作新建对话，点输入框上方【技能】，勾选 ppt-master</li>
+<li>指令唤起（填表板自动生成）：提示词开头自带 <code>@ppt-master</code>，发送自动唤起，不用手动勾选</li>
+</ol>
+
 <p><strong>🔹 标准制作顺序（不要乱序）</strong></p>
 <p>①选题评析 → ②PPT完整大纲 → ③上传参考PPT提取风格规范 → ④逐页生成HTML单页代码 → ⑤SVG配图生成 → ⑥调用ppt-master转为PPT → ⑦出问题用复盘模板修复</p>
 <p><strong>🔹 重要限制</strong></p>
@@ -61,14 +84,14 @@ pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:
 <li>④HTML生成Prompt：单页PPT的固定尺寸HTML代码</li>
 <li>⑤复盘沉淀Prompt：转PPT出错时，用来修复HTML</li>
 <li>⑥SVG绘图Prompt：生成流程图、架构图矢量图</li>
-<li>⑦单页转PPTPrompt：发给豆包，调用ppt-master执行转换</li>
+<li>⑦单页转PPTPrompt：发给豆包工作，自带@ppt-master唤起标记，调用技能转换</li>
 </ul>
 </section>
 
 <section class="warn-block">
 <h2>⚠️ 常见踩坑清单</h2>
 <ol>
-<li>技能没装：搜不到ppt-master → 更新豆包客户端，网页版优先</li>
+<li>找不到技能入口：你打开的是普通豆包，不是【豆包工作 Doubao Work】</li>
 <li>转换后排版乱飞：HTML里不能用 %、vw、vh、rem，全部px固定尺寸</li>
 <li>图片不显示：不能写http图片链接，必须base64嵌入</li>
 <li>字体缺失：尽量使用系统自带无衬线字体，避免小众字体</li>
@@ -170,7 +193,7 @@ pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:
   <div class="btns">
     <button class="success" onclick="copyOut()">复制当前输出</button>
   </div>
-  <div class="copy-tip" id="copyTip">✅ 已复制，去豆包粘贴发送！</div>
+  <div class="copy-tip" id="copyTip">✅ 已复制，去豆包工作粘贴发送！</div>
 </section>
 
 <script>
@@ -288,7 +311,8 @@ ${get('styleBlock')}`
   show(p)
 }
 function genP7(){
-  const p=`调用ppt-master skill，把下面粘贴的单页HTML转为PPT幻灯片，画布16:9，严格保留布局、文字、配色、图表样式，不要自动改动排版。
+  const p=`@ppt-master
+调用ppt-master skill，把下面粘贴的单页HTML转为PPT幻灯片，画布16:9，严格保留布局、文字、配色、图表样式，不要自动改动排版。
 请等待我粘贴HTML代码。`
   show(p)
 }
