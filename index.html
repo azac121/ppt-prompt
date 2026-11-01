@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>豆包PPT填表板｜新版流程（ppt-master Skill）</title>
+<title>豆包PPT填表板｜ppt-master 一站式PPT生成工具</title>
 <style>
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-body{max-width:1100px;margin:24px auto;padding:0 16px;color:#222;background:#f7f9fb;font-size:16px;line-height:1.6}
-h1{font-size:22px;margin-bottom:8px;color:#1f2937}
+body{max-width:1140px;margin:24px auto;padding:0 16px;color:#222;background:#f7f9fb;font-size:16px;line-height:1.6}
+h1{font-size:24px;margin-bottom:8px;color:#1f2937}
 .desc{color:#555;margin-bottom:20px}
 .step-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
 .step-tag{padding:6px 10px;background:#e8edf7;border-radius:6px;font-size:14px}
@@ -21,15 +21,61 @@ textarea{min-height:90px;resize:vertical}
 button{padding:9px 14px;border:none;border-radius:6px;background:#3b6fd9;color:#fff;cursor:pointer;font-size:15px}
 button.secondary{background:#6b7280}
 button.success{background:#10b981}
+button.warning{background:#f59e0b;color:#fff}
 pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:pre-wrap;word-break:break-all;font-size:13px;max-height:340px;overflow:auto}
 .copy-tip{color:#10b981;font-size:14px;margin-top:6px;display:none}
 .grid-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:720px){.grid-row{grid-template-columns:1fr}}
+.info-block{background:#ecfdf5;border:1px solid #a7f3d0;padding:12px;border-radius:8px;margin:10px 0;color:#065f46}
+.warn-block{background:#fffbeb;border:1px solid #fcd34d;padding:12px;border-radius:8px;margin:10px 0;color:#92400e}
 </style>
 </head>
 <body>
 <h1>豆包PPT填表板｜适配 ppt-master Skill</h1>
-<div class="desc">流程顺序：选题评析 → 详细大纲 → 提取风格 → HTML生成 → 复盘沉淀 → SVG绘图 → 单页转换；仅支持单页试转，不批量</div>
+<div class="desc">一站式生成答辩/竞赛PPT提示词｜新手友好，从0到1完成PPT制作</div>
+
+<section class="info-block">
+<h2>📖 新手必读｜0基础使用指南（发给别人先看这里！）</h2>
+<p><strong>🔹 前置准备：必须先安装 Skill</strong></p>
+<p>本工具依赖豆包技能：<code>ppt-master</code>，没有安装将无法执行HTML转PPT。</p>
+<ol>
+<li>打开豆包网页版 / PC客户端</li>
+<li>左侧【技能广场】搜索：<strong>ppt-master</strong></li>
+<li>点击添加技能，开启技能调用权限（免费）</li>
+<li>确认聊天框上方可以看到 ppt-master 已启用</li>
+</ol>
+<p><strong>🔹 标准制作顺序（不要乱序）</strong></p>
+<p>①选题评析 → ②PPT完整大纲 → ③上传参考PPT提取风格规范 → ④逐页生成HTML单页代码 → ⑤SVG配图生成 → ⑥调用ppt-master转为PPT → ⑦出问题用复盘模板修复</p>
+<p><strong>🔹 重要限制</strong></p>
+<ul>
+<li>ppt-master <strong>只支持单页转换，不支持一次性批量转全部页面</strong></li>
+<li>画布固定：16:9（1920×1080）</li>
+<li>不支持外部图片链接，图片必须转base64内嵌进HTML</li>
+<li>转换失败大多是CSS写法、尺寸单位不规范导致</li>
+</ul>
+<p><strong>🔹 按钮说明</strong></p>
+<ul>
+<li>①选题评析Prompt：输入主题，让AI给你4-6个选题并评析优劣</li>
+<li>②详细大纲Prompt：确定选题后，输出逐页汇报大纲+口述稿</li>
+<li>③风格提取Prompt：上传参考PPT，提取字体、配色、版式规范</li>
+<li>④HTML生成Prompt：单页PPT的固定尺寸HTML代码</li>
+<li>⑤复盘沉淀Prompt：转PPT出错时，用来修复HTML</li>
+<li>⑥SVG绘图Prompt：生成流程图、架构图矢量图</li>
+<li>⑦单页转PPTPrompt：发给豆包，调用ppt-master执行转换</li>
+</ul>
+</section>
+
+<section class="warn-block">
+<h2>⚠️ 常见踩坑清单</h2>
+<ol>
+<li>技能没装：搜不到ppt-master → 更新豆包客户端，网页版优先</li>
+<li>转换后排版乱飞：HTML里不能用 %、vw、vh、rem，全部px固定尺寸</li>
+<li>图片不显示：不能写http图片链接，必须base64嵌入</li>
+<li>字体缺失：尽量使用系统自带无衬线字体，避免小众字体</li>
+<li>一次粘贴多页HTML：ppt-master只认单页，多页会报错</li>
+</ol>
+</section>
+
 <div class="step-bar">
   <div class="step-tag active">①选题评析</div>
   <div class="step-tag">②PPT大纲</div>
@@ -41,7 +87,7 @@ pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:
 </div>
 
 <section>
-  <h2>📌 基础信息（全局共用）</h2>
+  <h2>📌 基础信息（全局共用，一次填写全程复用）</h2>
   <label>汇报大主题</label>
   <input id="topic" placeholder="例如：乡村文旅活化、生态安全格局分析">
   <div class="grid-row">
@@ -64,7 +110,7 @@ pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:
       <input id="expectPages" placeholder="12">
     </div>
   </div>
-  <label>额外要求</label>
+  <label>额外全局要求</label>
   <textarea id="globalReq" placeholder="偏学术、突出创新、配图优先遥感区位图、风格正式简约等"></textarea>
 </section>
 
@@ -124,7 +170,7 @@ pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:
   <div class="btns">
     <button class="success" onclick="copyOut()">复制当前输出</button>
   </div>
-  <div class="copy-tip" id="copyTip">✅ 已复制</div>
+  <div class="copy-tip" id="copyTip">✅ 已复制，去豆包粘贴发送！</div>
 </section>
 
 <script>
