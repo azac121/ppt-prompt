@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆包PPT填表板｜新版流程（ppt-master Skill）</title>
+<style>
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{max-width:1100px;margin:24px auto;padding:0 16px;color:#222;background:#f7f9fb;font-size:16px;line-height:1.6}
+h1{font-size:22px;margin-bottom:8px;color:#1f2937}
+.desc{color:#555;margin-bottom:20px}
+.step-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.step-tag{padding:6px 10px;background:#e8edf7;border-radius:6px;font-size:14px}
+.step-tag.active{background:#3b6fd9;color:#fff}
+section{background:#fff;border-radius:10px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px #0000000c}
+h2{font-size:18px;margin-top:0;margin-bottom:12px;border-left:4px solid #3b6fd9;padding-left:10px}
+label{display:block;margin:10px 0 4px;font-weight:500}
+input,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:6px;font-size:16px;font-family:inherit}
+textarea{min-height:90px;resize:vertical}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+button{padding:9px 14px;border:none;border-radius:6px;background:#3b6fd9;color:#fff;cursor:pointer;font-size:15px}
+button.secondary{background:#6b7280}
+button.success{background:#10b981}
+pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:6px;white-space:pre-wrap;word-break:break-all;font-size:13px;max-height:340px;overflow:auto}
+.copy-tip{color:#10b981;font-size:14px;margin-top:6px;display:none}
+.grid-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:720px){.grid-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>豆包PPT填表板｜适配 ppt-master Skill</h1>
+<div class="desc">流程顺序：选题评析 → 详细大纲 → 提取风格 → HTML生成 → 复盘沉淀 → SVG绘图 → 单页转换；仅支持单页试转，不批量</div>
+<div class="step-bar">
+  <div class="step-tag active">①选题评析</div>
+  <div class="step-tag">②PPT大纲</div>
+  <div class="step-tag">③风格提取</div>
+  <div class="step-tag">④HTML生成</div>
+  <div class="step-tag">⑤复盘沉淀</div>
+  <div class="step-tag">⑥SVG图</div>
+  <div class="step-tag">⑦单页转PPT</div>
+</div>
+
+<section>
+  <h2>📌 基础信息（全局共用）</h2>
+  <label>汇报大主题</label>
+  <input id="topic" placeholder="例如：乡村文旅活化、生态安全格局分析">
+  <div class="grid-row">
+    <div>
+      <label>汇报场景</label>
+      <input id="scene" placeholder="竞赛申报 / 课程作业 / 结题答辩">
+    </div>
+    <div>
+      <label>汇报时长</label>
+      <input id="duration" placeholder="8分钟 / 15分钟">
+    </div>
+  </div>
+  <div class="grid-row">
+    <div>
+      <label>受众</label>
+      <input id="audience" placeholder="评委、专业课老师、同学">
+    </div>
+    <div>
+      <label>预计总页数</label>
+      <input id="expectPages" placeholder="12">
+    </div>
+  </div>
+  <label>额外要求</label>
+  <textarea id="globalReq" placeholder="偏学术、突出创新、配图优先遥感区位图、风格正式简约等"></textarea>
+</section>
+
+<section>
+  <h2>② 选定主题后填写</h2>
+  <label>最终确定选题</label>
+  <input id="finalTitle" placeholder="等第一步选题评析完成后填写">
+</section>
+
+<section>
+  <h2>④ HTML单页脚本（一页填一次）</h2>
+  <div class="grid-row">
+    <div>
+      <label>页码</label>
+      <input id="pageNo" placeholder="3">
+    </div>
+    <div>
+      <label>页面标题</label>
+      <input id="pageTitle" placeholder="研究区概况">
+    </div>
+  </div>
+  <label>页面展示文字</label>
+  <textarea id="pageText" placeholder="PPT上直接展示的文字要点"></textarea>
+  <label>配图/图表建议</label>
+  <textarea id="chartSuggest" placeholder="区位图、柱状对比图、架构流程图等，写明信息表达目标"></textarea>
+  <label>汇报口述文稿</label>
+  <textarea id="speech" placeholder="汇报时口头说的内容，不放在PPT页面上"></textarea>
+  <label>页面备注</label>
+  <textarea id="pageNote" placeholder="重点、容易被提问的点"></textarea>
+</section>
+
+<section>
+  <h2>⑤ 复盘：转换问题清单</h2>
+  <textarea id="bugList" placeholder="文字溢出、SVG变形、base64图片不显示、字体乱码等"></textarea>
+</section>
+
+<section>
+  <h2>⑥ SVG绘图描述</h2>
+  <textarea id="svgDesc" placeholder="架构图、流程图，模块关系、流向"></textarea>
+  <label>风格规范（粘贴第三步输出的结果）</label>
+  <textarea id="styleBlock" placeholder="粘贴风格规范文本"></textarea>
+</section>
+
+<section>
+  <h2>🎯 生成提示词</h2>
+  <div class="btns">
+    <button onclick="genP1()">① 选题评析 Prompt</button>
+    <button onclick="genP2()">② 详细大纲 Prompt</button>
+    <button onclick="genP3()">③ 风格提取 Prompt</button>
+    <button onclick="genP4()">④ HTML生成 Prompt</button>
+    <button onclick="genP5()">⑤ 复盘沉淀 Prompt</button>
+    <button onclick="genP6()">⑥ SVG绘图 Prompt</button>
+    <button onclick="genP7()">⑦ 单页转PPT Prompt</button>
+    <button class="secondary" onclick="clearAll()">清空全部表单</button>
+  </div>
+  <pre id="outBox"></pre>
+  <div class="btns">
+    <button class="success" onclick="copyOut()">复制当前输出</button>
+  </div>
+  <div class="copy-tip" id="copyTip">✅ 已复制</div>
+</section>
+
+<script>
+const $ = s=>document.querySelector(s);
+function get(id){return document.getElementById(id).value.trim()}
+function show(text){
+  $('#outBox').textContent=text;
+  $('#copyTip').style.display='none';
+}
+function copyOut(){
+  const t=$('#outBox').textContent;
+  navigator.clipboard.writeText(t).then(()=>$('#copyTip').style.display='block')
+}
+function genP1(){
+  const p=`任务：基于我给出的大主题，生成若干个适合PPT汇报的备选选题，并且逐个评析优劣。
+要求：
+1. 输出4–6个备选选题，适合答辩/竞赛/课程汇报；从难度、创新性、资料获取难度、受众接受度、容易出彩程度五个维度评判；
+2. 每个选题固定格式：
+【选题名称】
+✅ 优势：
+⚠️ 短板与风险：
+📌 适配场景：
+💡 落地建议：
+3. 最后增加汇总对比小结，帮我快速挑选；
+4. 不要直接生成PPT大纲，只做选题策划和优劣评析。
+
+==== 表单信息 ====
+汇报大主题：${get('topic')}
+汇报场景：${get('scene')}
+汇报时长：${get('duration')}
+受众：${get('audience')}
+预计总页数：${get('expectPages')}
+额外全局要求：${get('globalReq')}`
+  show(p)
+}
+function genP2(){
+  const p=`任务：基于已经确定的选题，输出完整PPT逐页详细大纲，内容充实，不要过度简略。
+每页固定输出字段：
+【页码｜页面标题】
+▸ 页面展示文字：PPT页面上呈现的内容要点
+▸ 配图/图表建议：写明图类型、展示信息
+▸ 汇报口述文稿：口头讲解内容，不放到PPT上
+▸ 页面备注：本页重点、评委容易提问的地方
+
+全局约束：
+1. 整体逻辑连贯，符合汇报叙事顺序；
+2. 数据、分析页面优先安排图表；现状、理论部分搭配配图；
+3. 区分【PPT页面文字】和【口头讲解稿】，不要混在一起；
+4. 结构完整，包含封面、目录、背景、方法、结果、分析、结论、展望、致谢。
+5. 最后附上整篇汇报主线说明。
+
+==== 表单信息 ====
+最终选题：${get('finalTitle')}
+汇报场景：${get('scene')}
+汇报时长：${get('duration')}
+受众：${get('audience')}
+预计总页数：${get('expectPages')}
+额外全局要求：${get('globalReq')}`
+  show(p)
+}
+function genP3(){
+  const p=`我上传了参考PPT样稿，请提取可复用的风格规范，输出下面内容：
+1. 画布比例：固定16:9，1920px×1080px
+2. 字体规范：标题字体、正文字体、字号、字重、颜色
+3. 配色规范：主色、辅助色、文字色、背景色
+4. 版式规范：页边距、标题位置、卡片圆角、对齐方式
+5. 图表规范：图表配色、线条样式、图例排版
+6. 禁用样式清单（不要用哪些效果）
+
+输出简洁、可直接给AI生成页面使用的规范文本。`
+  show(p)
+}
+function genP4(){
+  const p=`你需要生成单页PPT的HTML代码，后续交给ppt-master skill转为PPT，严格遵守下面所有约束：
+==== 硬性规则 ====
+1. 画布尺寸固定 width:1920px; height:1080px; 背景跟随风格规范；单位只用px，禁止vw、vh、%、rem、fixed定位；
+2. CSS全部内嵌在这个页面，不要外部css；
+3. 图片全部转为base64内嵌，不使用外部链接；
+4. 一页一个独立HTML，不要多页；
+5. 不要自适应、不要响应式代码，只做固定尺寸幻灯片。
+
+==== 当前页面信息 ====
+页码：${get('pageNo')}
+页面标题：${get('pageTitle')}
+页面展示文字：${get('pageText')}
+配图/图表建议：${get('chartSuggest')}
+汇报口述文稿：${get('speech')}
+页面备注：${get('pageNote')}
+
+==== 风格规范 ====
+${get('styleBlock')}
+
+==== 输出要求 ====
+直接输出完整HTML代码块，不要多余解释。`
+  show(p)
+}
+function genP5(){
+  const p=`刚才调用ppt-master skill把HTML转PPT出现了下面这些问题，请分析原因并给出修改后的HTML修复方案：
+问题列表：
+${get('bugList')}
+
+要求：
+1. 逐条定位问题根源（布局、尺寸、样式、图片、css写法）
+2. 给出修复后的完整HTML代码
+3. 标注修改点，方便我对照。`
+  show(p)
+}
+function genP6(){
+  const p=`根据下面描述生成矢量SVG图，适配1920×1080PPT画布，配色和排版遵守风格规范，直接输出完整svg代码，不要多余文字。
+绘图需求：
+${get('svgDesc')}
+
+风格规范：
+${get('styleBlock')}`
+  show(p)
+}
+function genP7(){
+  const p=`调用ppt-master skill，把下面粘贴的单页HTML转为PPT幻灯片，画布16:9，严格保留布局、文字、配色、图表样式，不要自动改动排版。
+请等待我粘贴HTML代码。`
+  show(p)
+}
+function clearAll(){
+  document.querySelectorAll('input,textarea').forEach(el=>el.value='')
+  $('#outBox').textContent=''
+  $('#copyTip').style.display='none'
+}
+</script>
+</body>
+</html>
